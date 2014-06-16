@@ -8,7 +8,7 @@
 npm i -S transports
 ```
 
-# `transports.passports(data, providerHandler)`
+# `.passports(data, providerHandler)`
 
 Configures `passport` with the authentication providers passed to `data.providers`. It will invoke `passport.use` passing your strategy and then call `providerHandler` in a normalized way, for each of those providers.
 
@@ -20,11 +20,11 @@ The `providerHandler` method should be used to lookup the user, and maybe create
 - The `profile` argument is the data returned by the authentication provider
 - The `done` callback is the one described [in the `passport` documentation][1]
 
-# `transports.routing(data, app, providerHandler)`
+# `.routing(data, app, providerHandler)`
 
 Sets up routing for the selected providers.
 
-# `transports.serialization(User, field?)`
+# `.serialization(User, field?)`
 
 Sets up serialization and deserialization for the `User` object, assuming these have an `_id` field. The `_id` field is the default, but you can provide another one.
 
