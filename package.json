@@ -1,7 +1,7 @@
 {
   "name": "transports",
   "description": "Passport-enabled conventional OAuth handling simplification",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/bevacqua/transports",
   "authors": [
     "Nicolas Bevacqua <nicolasbevacqua@gmail.com>"
@@ -14,6 +14,7 @@
   "bugs": {
     "url": "https://github.com/bevacqua/transports/issues"
   },
+  "main": "transports.js",
   "dependencies": {
     "lodash": "^2.4.1",
     "passport": "^0.2.0"
