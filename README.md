@@ -8,21 +8,21 @@
 npm i -S transports
 ```
 
-# `.passports(data, providerHandler)`
+# `.passports(data, handler)`
 
-Configures `passport` with the authentication providers passed to `data.providers`. It will invoke `passport.use` passing your strategy and then call `providerHandler` in a normalized way, for each of those providers.
+Configures `passport` with the authentication providers passed to `data.providers`. It will invoke `passport.use` passing your strategy and then call `handler` in a normalized way, for each of those providers.
 
-### `providerHandler(query, profile, done)`
+### `handler(query, profile, done)`
 
-The `providerHandler` method should be used to lookup the user, and maybe create a new one if the user isn't found.
+The `handler` method should be used to lookup the user, and maybe create a new one if the user isn't found.
 
 - The `query` will be something like `{ googleId: '...' }`, `{ facebookId: '...' }`, etc.
 - The `profile` argument is the data returned by the authentication provider
 - The `done` callback is the one described [in the `passport` documentation][1]
 
-# `.routing(data, app, providerHandler)`
+# `.routing(data, app, handler)`
 
-Sets up routing for the selected providers.
+Sets up routing for the selected providers. The `handler` is only needed when the user needs a new account.
 
 # `.serialization(User, field?)`
 
