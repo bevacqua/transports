@@ -8,9 +8,13 @@
 npm i -S transports
 ```
 
-# `.passports(data, handler)`
+# `.configure(data)`
 
-Configures `passport` with the authentication providers passed to `data.providers`. It will invoke `passport.use` passing your strategy and then call `handler` in a normalized way, for each of those providers.
+See [Configuring `data`](#configuring-data) below for an example `data` object. This is used across `transports` to access the different authentication providers you want to set up, your `passport` instance, and other configuration options.
+
+# `.passports(handler)`
+
+Configures `passport` with the authentication providers passed to `data.providers`. It will invoke `passport.use` passing your strategy and then telling it to call `handler` for each of those providers, normalizing authentication across providers.
 
 ### `handler(query, profile, done)`
 
@@ -20,9 +24,9 @@ The `handler` method should be used to lookup the user, and maybe create a new o
 - The `profile` argument is the data returned by the authentication provider
 - The `done` callback is the one described [in the `passport` documentation][1]
 
-# `.routing(data, app, handler)`
+# `.routing(app, handler)`
 
-Sets up routing for the selected providers. The `handler` is only needed when the user needs a new account.
+Sets up routing for the selected providers. The `handler` is only used when the user needs a new account.
 
 # `.serialization(User, field?)`
 
@@ -34,11 +38,12 @@ transports.serialization(User, 'id');
 
 # Configuring `data`
 
-Here's a real-world `data` object example.
+Here's a real-world `data` object example. Note that you need to pass in your own `passport` instance, because that way you'll stay in control.
 
 ```js
 {
-  authority: env('AUTHORITY'),
+  passport: require('passport'),
+  authority: process.env.AUTHORITY,
   success: '/',
   login: '/authentication/login',
   logout: '/authentication/logout',
@@ -48,31 +53,32 @@ Here's a real-world `data` object example.
       get enabled () { return this.id && this.secret; },
       strategy: require('passport-facebook').Strategy,
       protocol: 'oauth2',
-      id: env('FACEBOOK_APP_ID'),
-      secret: env('FACEBOOK_APP_SECRET'),
+      id: process.env.FACEBOOK_APP_ID,
+      secret: process.env.FACEBOOK_APP_SECRET,
       link: '/authentication/login/facebook',
       callback: '/authentication/login/facebook/callback',
       options: { scope: 'email' }
     },
     google: {
       get enabled () { return this.id && this.secret; },
-      strategy: require('passport-google-oauth').Strategy,
-      id: env('GOOGLE_CLIENT_ID'),
+      strategy: require('passport-google-oauth').OAuth2Strategy,
       protocol: 'oauth2',
-      secret: env('GOOGLE_CLIENT_SECRET'),
+      id: process.env.GOOGLE_CLIENT_ID,
+      secret: process.env.GOOGLE_CLIENT_SECRET,
       link: '/authentication/login/google',
-      callback: '/authentication/login/google/callback'
+      callback: '/authentication/login/google/callback',
+      options: { scope: 'openid email' }
     },
     linkedin: {
       get enabled () { return this.id && this.secret; },
       strategy: require('passport-linkedin').Strategy,
       protocol: 'oauth1',
-      id: env('LINKEDIN_API_KEY'),
-      secret: env('LINKEDIN_API_SECRET'),
+      id: process.env.LINKEDIN_API_KEY,
+      secret: process.env.LINKEDIN_API_SECRET,
       link: '/authentication/login/linkedin',
       callback: '/authentication/login/linkedin/callback',
-      fields: ['id', 'first-name', 'last-name', 'email-address'],
-      options: { scope: ['r_basicprofile', 'r_emailaddress'] }
+      options: { scope: ['r_basicprofile', 'r_emailaddress'] },
+      fields: ['id', 'first-name', 'last-name', 'email-address']
     }
   }
 }

@@ -1,9 +1,11 @@
 'use strict';
 
 var _ = require('lodash');
-var passport = require('passport');
+var store = require('../lib/store');
 
-function routing (data, app, register) {
+function routing (app, register) {
+  var data = store.get();
+  var passport = data.passport;
   var authenticationOptions = {
     failureRedirect: data.login,
     failureFlash: true
