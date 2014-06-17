@@ -15,7 +15,6 @@ function routing (app, register) {
   app.get(data.logout, logout);
   app.get(data.login, requireAnonymous);
 
-  app.post(data.login, requireAnonymous, login, redirect);
   app.post(data.local, requireAnonymous, local, redirect);
 
   _.keys(data.providers).forEach(setup);
