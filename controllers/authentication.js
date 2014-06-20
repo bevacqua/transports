@@ -20,13 +20,13 @@ function routing (app, register) {
   _.keys(data.providers).forEach(setup);
 
   function setup (name) {
-    var meta = data.providers[name];
-    var provider = callbacks(name, meta.options);
-    if (!meta.enabled) {
+    var cb = callbacks(name, provider.options);
+    var provider = data.providers[name];
+    if (!provider.enabled) {
       return;
     }
-    app.get(meta.link, rememberReturnUrl, provider.auth);
-    app.get(meta.callback, provider.callback, redirect);
+    app.get(provider.link, rememberReturnUrl, cb.auth);
+    app.get(provider.callback, cb.callback, redirect);
   }
 
   function local (req, res, next) {
