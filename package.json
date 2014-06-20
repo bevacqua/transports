@@ -1,6 +1,6 @@
 {
   "name": "transports",
-  "description": "Passport-enabled conventional OAuth handling simplification",
+  "description": "Passport-enabled conventional authentication provider handling simplification",
   "version": "0.2.2",
   "homepage": "https://github.com/bevacqua/transports",
   "authors": [
