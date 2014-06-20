@@ -1,6 +1,6 @@
 # Transports
 
-> Passport-enabled conventional OAuth handling simplification
+> Passport-enabled conventional authentication provider handling simplification
 
 # Install
 
