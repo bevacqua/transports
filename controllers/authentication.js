@@ -20,11 +20,11 @@ function routing (app, register) {
   _.keys(data.providers).forEach(setup);
 
   function setup (name) {
-    var cb = callbacks(name, provider.options);
     var provider = data.providers[name];
     if (!provider.enabled) {
       return;
     }
+    var cb = callbacks(name, provider.options);
     app.get(provider.link, rememberReturnUrl, cb.auth);
     app.get(provider.callback, cb.callback, redirect);
   }
