@@ -28,12 +28,12 @@ The `handler` method should be used to lookup the user, and maybe create a new o
 
 Sets up routing for the selected providers. The `handler` is only used when the user needs a new account.
 
-# `.serialization(User, field?)`
+# `.serialization(field?)`
 
-Sets up serialization and deserialization for the `User` object, assuming these have an `_id` field. The `_id` field is the default, but you can provide another one.
+Sets up serialization and deserialization. The `_id` field is used by default, but you can provide another one.
 
 ```js
-transports.serialization(User, 'id');
+transports.serialization('id');
 ```
 
 # Configuring `data`
