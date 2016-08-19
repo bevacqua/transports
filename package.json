@@ -16,6 +16,7 @@
   },
   "main": "transports.js",
   "dependencies": {
+    "assignment": "2.2.0",
     "lodash": "^2.4.1"
   }
 }
